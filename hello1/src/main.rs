@@ -1,6 +1,11 @@
 #![no_std]
 #![no_main]
 
+#[panic_handler]
+fn my_panic(_info: &core::panic::PanicInfo) -> ! {
+    loop {}
+}
+
 #[no_mangle]
 extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
     // printf use null terminated string
@@ -15,9 +20,4 @@ extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
         libc::write(1, hello2.as_ptr() as *const _, hello2.len());
     }
     0
-}
-
-#[panic_handler]
-fn my_panic(_info: &core::panic::PanicInfo) -> ! {
-    loop {}
 }
