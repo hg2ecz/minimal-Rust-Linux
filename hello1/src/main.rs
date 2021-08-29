@@ -2,10 +2,17 @@
 #![no_main]
 
 #[no_mangle]
-pub extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
-    const HELLO: &'static str = "Hello world!\n\0";
+extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
+    // printf use null terminated string
+    let hello1 = "Hello world!\n\0";
     unsafe {
-        libc::printf(HELLO.as_ptr() as *const _);
+        libc::printf(hello1.as_ptr() as *const _);
+    }
+
+    // write use array of char and length
+    let hello2 = "Hello world!\n";
+    unsafe {
+        libc::write(1, hello2.as_ptr() as *const _, hello2.len());
     }
     0
 }
