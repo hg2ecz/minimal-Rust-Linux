@@ -1,6 +1,11 @@
 [workspace]
 members = [
     "hello*",
+
+]
+
+exclude = [
+    "Reference_Rust_Dynamic",
 ]
 
 
